@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Layout, Menu, Icon, Avatar, Badge, Popover} from 'antd';
+import {Layout, Menu, Icon, Avatar, Badge, Popover, message} from 'antd';
 import {  Link, withRouter } from 'dva/router';
 import menuData from '../../router/routerConfig';
 import './index.less';
@@ -15,6 +15,7 @@ class Home extends Component {
     };
 
     componentDidMount(){
+        const { history } = this.props;
         fetch('/api/checkUser',{
             method:'GET',
             headers: {
@@ -25,7 +26,9 @@ class Home extends Component {
             if(data&&data.data){
                 this.setState({
                     user:data.data
-                })
+                });
+            }else{
+                // history.replace("/login");
             }
         }).catch((err)=>{
             return err
@@ -36,19 +39,35 @@ class Home extends Component {
         this.setState({
             collapsed: !this.state.collapsed,
         });
-    }
+    };
 
     signOut = () =>{
         const {history} = this.props;
-        history.push("/login");
-    }
+        fetch('/api/logout',{
+            method:'POST',
+            body:JSON.stringify({account:this.state.user.account}),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((res)=>res.json()).then((data)=>{
+           if(data&&data.code === 200){
+               history.push("/login");
+           }
+        }).catch((err)=>{
+            return err
+        });
+
+    };
 
     isFullPath = () => {
         const {history} = this.props;
-        return history.location && ['/login'].indexOf(history.location.pathname) !== -1||history.location && ['/register'].indexOf(history.location.pathname) !== -1;
+        return history.location && ['/'].indexOf(history.location.pathname) !== -1
+            || history.location && ['/login'].indexOf(history.location.pathname) !== -1
+            || history.location && ['/register'].indexOf(history.location.pathname) !== -1;
     };
     render() {
-        const { children } = this.props;
+        const { children,location } = this.props;
         const listDom = (<ul className='info'>
             <li>未读消息</li>
             <li>个人信息</li>
@@ -68,15 +87,17 @@ class Home extends Component {
                     <div className="logo" >
                         <img src={require('../../static/logo.png')} alt='千羚'/>
                     </div>
-                    <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
-                        {privateRoutes.map((item)=>(
-                            <Menu.Item key={item.id}>
-                                <Link to={item.path}>
-                                    <Icon type={item.icon} />
-                                    <span>{item.name}</span>
-                                </Link>
-                            </Menu.Item>
-                        ))}
+                    <Menu theme="light" mode="inline" defaultSelectedKeys={[`${location.pathname}`]}>
+                        {privateRoutes.map((item)=>{
+                            return (
+                                <Menu.Item key={item.path}>
+                                    <Link to={item.path}>
+                                        <Icon type={item.icon} />
+                                        <span>{item.name}</span>
+                                    </Link>
+                                </Menu.Item>
+                            )
+                        })}
                     </Menu>
                 </Sider>
                 <Layout>

@@ -1,7 +1,7 @@
 import React from 'react';
 import dva from 'dva';
 import models from './models/index';
-import Home from './routes/index/index';
+import Home from './pages/index/index';
 import DvaRouter from './router/router';
 import { Router } from 'dva/router';
 import './index.css';
@@ -15,18 +15,17 @@ const app = dva({
 // 2. Plugins
 // app.use({});
 // 3. Model
-models.map((model)=>{
+models.map((model) => {
     app.model(model);
 });
 // 4. Router
 app.router((props)=>{
     return(
         <Router history={props.history}>
-            <Home history={props.history}>
-                <DvaRouter {...props}/>
-            </Home>
+                <Home history={props.history}>
+                    <DvaRouter {...props}/>
+                </Home>
         </Router>
-
     )
 });
 

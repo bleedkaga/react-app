@@ -5,8 +5,7 @@ class PrivateRoute extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isAuthenticated: false,
-            loading:true
+            isAuthenticated: false
         };
     };
     componentDidMount(){
@@ -20,12 +19,14 @@ class PrivateRoute extends Component {
         }).then((res)=>res.json()).then((data)=>{
             if(data&&data.status)  {
                 this.setState({
-                    isAuthenticated:data.status,
-                    loading:false
+                    isAuthenticated:data.status
                 });
             }else{
-                history.replace("/login");
-                message.error(message.error(data.message), 2.5);
+                this.setState({
+                    isAuthenticated:true
+                });
+                // history.replace("/login");
+                // message.error(data.message, 2.5);
             }
         }).catch((err)=>{
             return err
@@ -34,13 +35,13 @@ class PrivateRoute extends Component {
     render(){
         let { component: Component, ...rest} = this.props;
         return (
-            <Spin spinning={this.state.loading}>
+            <div>
                 {
                     this.state.isAuthenticated
                         ? (<Route {...rest} render={(props) => ( <Component app={this.props.app} {...props} /> )}/> )
                         : ''
                 }
-            </Spin>
+            </div>
         )
 
     };

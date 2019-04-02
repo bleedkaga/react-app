@@ -10,14 +10,6 @@ class NormalLoginForm extends Component {
     constructor(props) {
         super(props);
     }
-    // 从cookie中获取成功登录过的账号密码
-    componentWillMount = () =>{
-        let account = cookie.getCookie('EGG_SESS');
-        console.log(account);
-        if(account){
-            this.props.history.replace('./index');
-        }
-    };
     // 表单提交
     handleSubmit = (e) => {
         e.preventDefault();
