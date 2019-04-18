@@ -2,8 +2,7 @@ import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
 import dynamic from 'dva/dynamic';
 import PrivateRoute from './privateRoute';
-import { routerConfig } from '../utils/config';
-const { routes, privateRoutes, privateRoutesAll} = routerConfig;
+import {privateRoutesAll,routes} from './config';
 function router({ history, app }) {
     return (
         <Router history={history}>
@@ -14,20 +13,6 @@ function router({ history, app }) {
                             key={index}
                             path={path}
                             exact
-                            component={dynamic({
-                                app,
-                                ...dynamics
-                            })}
-                        />
-                    ))
-                }
-                {
-                    privateRoutes.map(({path,...dynamics},index)=>(
-                        <PrivateRoute
-                            key={index}
-                            path={path}
-                            exact
-                            app={app}
                             component={dynamic({
                                 app,
                                 ...dynamics

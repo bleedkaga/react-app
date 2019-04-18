@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Route, withRouter} from 'dva/router';
-import {Alert, message, Spin} from "antd";
+import { message } from "antd";
 class PrivateRoute extends Component {
     constructor(props){
         super(props);
@@ -25,8 +25,8 @@ class PrivateRoute extends Component {
                 this.setState({
                     isAuthenticated:true
                 });
-                // history.replace("/login");
-                // message.error(data.message, 2.5);
+                history.replace("/login");
+                message.error(data.message, 2.5);
             }
         }).catch((err)=>{
             return err

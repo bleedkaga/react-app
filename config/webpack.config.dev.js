@@ -65,10 +65,24 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
           }),
         ],
       },
-    },
+    }
   ];
   if (preProcessor) {
-    loaders.push(require.resolve(preProcessor));
+    let loader = require.resolve(preProcessor)
+    if (preProcessor === "less-loader") {
+      loader = {
+        loader,
+        options: {
+          modifyVars: {
+            'primary-color': '#f5222d',
+            'link-color': '#f5222d',
+            'border-radius-base': '2px',
+          },
+          javascriptEnabled: true,
+        }
+      }
+    }
+    loaders.push(loader);
   }
   return loaders;
 };
@@ -147,6 +161,12 @@ module.exports = {
       .map(ext => `.${ext}`)
       .filter(ext => useTypeScript || !ext.includes('ts')),
     alias: {
+      common:path.join(__dirname,'../src/common'),
+      models:path.join(__dirname,'../src/models'),
+      pages:path.join(__dirname,'../src/pages'),
+      router:path.join(__dirname,'../src/router'),
+      static:path.join(__dirname,'../src/static'),
+      utils:path.join(__dirname,'../src/utils'),
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -186,7 +206,6 @@ module.exports = {
             options: {
               formatter: require.resolve('react-dev-utils/eslintFormatter'),
               eslintPath: require.resolve('eslint'),
-
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -300,7 +319,7 @@ module.exports = {
             exclude: lessModuleRegex,
             use: getStyleLoaders({
                 importLoaders: 2
-            }, 'less-loader'),
+            }, 'less-loader')
           },
           // Adds support for CSS Modules, but using LESS
           // using the extension .module.scss or .module.less

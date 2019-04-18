@@ -93,12 +93,21 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     },
   ];
   if (preProcessor) {
-    loaders.push({
+    let loader = {
       loader: require.resolve(preProcessor),
       options: {
         sourceMap: shouldUseSourceMap,
       },
-    });
+    }
+    if (preProcessor === "less-loader") {
+      loader.options.modifyVars = {
+        'primary-color': '#f5222d',
+        'link-color': '#f5222d',
+        'border-radius-base': '2px',
+      }
+      loader.options.javascriptEnabled = true
+    }
+    loaders.push(loader);
   }
   return loaders;
 };

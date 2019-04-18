@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
-import { Breadcrumb, Form, Table, Input, Button, Select, LocaleProvider, Pagination, Divider} from 'antd';
+import { Breadcrumb, Form, Table, Input, Button, Select, Pagination, Divider} from 'antd';
 import { Link } from 'dva/router';
-import zh_CN from 'antd/lib/locale-provider/zh_CN';
-import 'moment/locale/zh-cn';
 import { connect } from 'dva';
-import { paramsFormat } from "../../utils/utils";
+import { paramsFormat } from "utils/tools";
 import './index.less';
 const Option = Select.Option;
-class ApiManagement extends Component{
+@connect(state=>state)
+@Form.create()
+class Page extends Component{
+    constructor(props){
+        super(props);
+        this.columns = [
+            {title: '序号', dataIndex: 'index',key:'index'},
+            {title: '接口名称', dataIndex: 'name',key:'name'},
+            {title: '请求方式', dataIndex: 'method',key:'method'},
+            {title: '路由地址', dataIndex: 'path',key:'path'},
+            {title: '参数', dataIndex: 'params',key:'params'},
+            {title: '关联表', dataIndex: 'table',key:'table'},
+            {title: 'SQL语句', dataIndex: 'sql',key:'sql'},
+            {
+                title: '操作', dataIndex: 'action',key:'action',
+                render:(text, record)=>(
+                    <span>
+                      <span onClick={()=>this.createApiManagement(record)}>编辑</span>
+                      <Divider type="vertical" />
+                      <span onClick={()=>this.deleteApiManagement(record)}>删除</span>
+                    </span>
+                )
+            },
+        ];
+    }
     componentDidMount(){
         const { dispatch } = this.props;
         dispatch({
@@ -15,7 +37,7 @@ class ApiManagement extends Component{
         });
     };
     /*新增*/
-    addApiManagement = () =>{
+    createApiManagement = () =>{
 
     };
     /*删除*/
@@ -48,25 +70,6 @@ class ApiManagement extends Component{
     render(){
         const { getFieldDecorator } = this.props.form;
         const {dataSource,totalCount,loading} = this.props.apiManagement;
-        const columns = [
-            {title: '序号', dataIndex: 'index',key:'index'},
-            {title: '接口名称', dataIndex: 'name',key:'name'},
-            {title: '请求方式', dataIndex: 'method',key:'method'},
-            {title: '路由地址', dataIndex: 'path',key:'path'},
-            {title: '参数', dataIndex: 'params',key:'params'},
-            {title: '关联表', dataIndex: 'table',key:'table'},
-            {title: 'SQL语句', dataIndex: 'sql',key:'sql'},
-            {
-                title: '操作', dataIndex: 'action',key:'action',
-                render:(text, record)=>(
-                    <span>
-                      <a href="javascript:void(0);" onClick={()=>this.addApiManagement(record)}>编辑</a>
-                      <Divider type="vertical" />
-                      <a href="javascript:void(0);" onClick={()=>this.deleteApiManagement(record)}>删除</a>
-                    </span>
-                )
-            },
-        ];
         return (
             <div className='container'>
                 <div className='wrapper'>
@@ -109,33 +112,28 @@ class ApiManagement extends Component{
                     <Button icon="file-add" type="primary" ghost>
                         <Link to='/apiManagement/details'> 新增接口</Link>
                     </Button>
-                    <Divider type="vertical" />
-                    <Button icon="delete" type="danger" ghost>批量删除</Button>
                 </div>
                 <div className='wrapper'>
                     <Table
                         rowKey={record => record.index}
-                        columns={columns}
+                        columns={this.columns}
                         dataSource={dataSource}
                         loading={loading}
                         pagination={false}
                     />
                 </div>
                 <div className='wrapper'>
-                    <LocaleProvider locale={zh_CN}>
-                        <Pagination
-                            size="small"
-                            total={Number(totalCount)}
-                            showSizeChanger
-                            showQuickJumper
-                            onShowSizeChange={this.onCurrentChange}
-                            onChange={this.onCurrentChange}
-                        />
-                    </LocaleProvider>
+                    <Pagination
+                        size="small"
+                        total={Number(totalCount)}
+                        showSizeChanger
+                        showQuickJumper
+                        onShowSizeChange={this.onCurrentChange}
+                        onChange={this.onCurrentChange}
+                    />
                 </div>
             </div>
         )
     }
 }
-const WrappedSearchForm = Form.create()(ApiManagement);
-export default connect((state)=>(state))(WrappedSearchForm);
+export default Page;

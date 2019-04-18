@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import request from 'common/js/axios';
+import request from '../../common/js/axios';
 export default {
     namespace: 'apiManagement',
 
@@ -12,12 +12,15 @@ export default {
         pageSize:10
     },
 
-    subscriptions: {
-
+    reducers: {
+        apiManagementList(state,{ payload }){
+            return {
+                ...state,
+                dataSource: payload.data,
+            }
+        },
     },
-
     effects: {
-        /*获取API列表*/
         *getApiManagementList({payload}, {call, put, select}){
             const res =  yield call(()=>(request('/api/apiManagement','GET',payload)));
             if(res.code===0){
@@ -42,25 +45,8 @@ export default {
                 });
             }
         },
-        /*新增API*/
-        *createApiManagement({payload}, {call, put, select}){
-            const res =  yield call(()=>(request('/api/apiManagement','POST',payload)));
-            console.log(res)
-        }
     },
+    subscriptions: {
 
-    reducers: {
-        'apiManagementList'(state,{ payload }){
-            return {
-                ...state,
-                dataSource: payload.data,
-            }
-        },
-        'loading'(state,{payload}){
-            return {
-                ...state,
-                loading:payload
-            }
-        }
-    }
+    },
 };

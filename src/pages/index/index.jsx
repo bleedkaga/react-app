@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import {Layout, Menu, Icon, Avatar, Badge, Popover, message} from 'antd';
+import {Layout, Menu, Icon, Avatar, Badge, Popover} from 'antd';
 import {  Link, withRouter } from 'dva/router';
-import menuData from '../../router/routerConfig';
+import {privateRoutes,routes} from 'router/config';
 import './index.less';
-const { privateRoutes } = menuData;
 const { Header, Sider, Content } = Layout;
 class Home extends Component {
-    constructor(props){
-        super(props);
-    }
     state = {
         collapsed: false,
         user:{}
@@ -28,7 +24,7 @@ class Home extends Component {
                     user:data.data
                 });
             }else{
-                // history.replace("/login");
+                history.replace("/");
             }
         }).catch((err)=>{
             return err
@@ -62,9 +58,10 @@ class Home extends Component {
 
     isFullPath = () => {
         const {history} = this.props;
-        return history.location && ['/'].indexOf(history.location.pathname) !== -1
-            || history.location && ['/login'].indexOf(history.location.pathname) !== -1
-            || history.location && ['/register'].indexOf(history.location.pathname) !== -1;
+        const routeArray = routes.map((item)=> {
+            return item.path;
+        })
+        return routeArray.indexOf(history.location.pathname) !== -1;
     };
     render() {
         const { children,location } = this.props;

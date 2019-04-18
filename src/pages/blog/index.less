@@ -1,0 +1,125 @@
+@import "../../common/less/comon";
+.container{
+  .header-container{
+    background: url("../../static/header-background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    height: 550px;
+    .header-background{
+      background: rgba(44, 44, 44, 0.1);
+      background: -webkit-linear-gradient(90deg, rgba(44, 44, 44, 0.2), rgba(223, 164, 159, 0.6));
+      background: -o-linear-gradient(90deg, rgba(44, 44, 44, 0.2), rgba(223, 164, 159, 0.6));
+      background: -moz-linear-gradient(90deg, rgba(44, 44, 44, 0.2),rgba(223, 164, 159, 0.6));
+      background: linear-gradient(0deg, rgba(44, 44, 44, 0.2),rgba(223, 164, 159, 0.6));
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 550px;
+      width: 100%;
+      .header-content{
+        width: 1140px;
+        height: 100%;
+        margin: 0 auto;
+        padding: 0 15px;
+        .header-infocontainer{
+          margin-top: 80px;
+          .header-head{
+            height: 124px;
+            width: 124px;
+            border-radius: 100%;
+            overflow: hidden;
+            margin: 20px auto;
+          }
+          .header-title{
+            text-align: center;
+            font-size: 28px;
+            color: #ffffff;
+          }
+          .header-name{
+            text-align: center;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+          }
+          .header-number{
+            display: flex;
+            justify-content: center;
+            .header-item{
+              min-width: 80px;
+              text-align: center;
+              margin: 40px 30px;
+              .header-data{
+                font-size: 30px;
+                cursor: pointer;
+              }
+              div{
+                font-size: 16px;
+                color: #ffffff;
+              }
+            }
+          }
+        }
+      }
+      .header-navcontainer{
+        width: 100%;
+        position: fixed;
+        top: 0;
+        .header-menucontainer{
+          margin: 0 auto;
+          width: 1140px;
+          height: 80px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .header-barcontainer{
+            cursor: pointer;
+            height: 15px;
+            .header-bar{
+              display: block;
+              width: 22px;
+              height: 1px;
+              border-radius: 1px;
+              background: #FFFFFF;
+            }
+            .short{
+              margin: 6px 0;
+              width: 18px;
+            }
+          }
+          .header-nav{
+            a {
+              color: #FFFFFF;
+              margin-left: 40px;
+            }
+          }
+        }
+      }
+      .active{
+        background:rgba(245,34,45,0.8);
+      }
+    }
+  }
+  .section-container{
+    width: 1140px;
+    margin: auto;
+    .section-title{
+      text-align: center;
+      font-size: 24px;
+      margin: 20px 0 0 0;
+      padding: 0 210px;
+    }
+    .section-icon{
+      text-align: center;
+      i{
+        margin: 20px 6px;
+        cursor: pointer;
+      }
+    }
+    .section-content{
+      padding: 0 210px;
+      color: #9A9A9A;
+      text-align: justify; 
+      text-justify: inter-ideograph; 
+      text-indent: 2em;
+    }
+  }
+}

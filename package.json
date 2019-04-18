@@ -17,7 +17,6 @@
     "babel-preset-react-app": "^6.1.0",
     "bfj": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
-    "chalk": "2.4.1",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
@@ -74,7 +73,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "proxy": "http://b.snet/company_external",
+  "proxy": "http://localhost:7001",
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -128,12 +127,21 @@
     ],
     "plugins": [
       [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
         "import",
         {
           "libraryName": "antd",
-          "style": "css"
+          "style": true
         }
       ]
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.0"
   }
 }

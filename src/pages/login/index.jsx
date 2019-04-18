@@ -2,25 +2,19 @@ import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox} from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'dva';
-import Cookie from '../../utils/cookie';
 import './index.less'
 const FormItem = Form.Item;
-const cookie = new Cookie();
 class NormalLoginForm extends Component {
-    constructor(props) {
-        super(props);
-    }
     // 表单提交
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
-              const { dispatch, history} = this.props;
+              const { dispatch } = this.props;
               dispatch({
                   type:'login/submit',
                   payload:{
                       formData:values,
-                      history:history
                   }
               });
           }
@@ -60,7 +54,7 @@ class NormalLoginForm extends Component {
                             })(
                                 <Checkbox>记住密码</Checkbox>
                             )}
-                            <a className="login-form-forgot">忘记密码？</a>
+                            <span className="login-form-forgot">忘记密码？</span>
                             <Button type="primary" htmlType="submit" className="login-form-button">
                                 登录
                             </Button>

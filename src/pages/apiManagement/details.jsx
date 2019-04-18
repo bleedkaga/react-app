@@ -9,9 +9,12 @@ class apiManagementDetails extends Component{
     handleSubmit = () => {
         const { dispatch } = this.props;
         this.props.form.validateFields((err, fieldsValue) => {
+            if(err){
+                return;
+            }
             dispatch({
                 type:'apiManagement/createApiManagement',
-                payload:{}
+                payload:fieldsValue
             });
         });
     };

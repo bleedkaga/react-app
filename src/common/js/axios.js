@@ -1,5 +1,5 @@
 import axios from 'axios';
-const apiAxios = (url,method,params,config) =>{
+const request = (url,method,params,config) =>{
     let options = {};
     if(config){
         options = {
@@ -27,13 +27,5 @@ const apiAxios = (url,method,params,config) =>{
         });
     }
 };
-const GET = (url,params,config) => {
-    return apiAxios(url,"GET",params,config);
-};
-const POST = (url,params,config)=>{
-   return apiAxios(url,"POST",params,config);
-};
-export {
-    GET,
-    POST,
-};
+
+export default request;
