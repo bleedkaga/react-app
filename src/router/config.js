@@ -21,24 +21,44 @@ const routes = [
 const privateRoutes = [
     {
         name: 'API管理',
-        icon: 'link',
-        path: '/apiManagement'
+        icon: 'file-text',
+        path: '/managementApi'
+    },
+    {
+        name: '查询栏',
+        icon: 'file-search',
+        path: '/queryBar'
+    },
+    {
+        name: '基础表格',
+        icon: 'table',
+        path: '/baseTable'
     }
 ];
 const privateRoutesAll = [
     {
         name: 'API管理',
-        path: '/apiManagement',
+        path: '/managementApi',
         component: () => import('pages/apiManagement/index.jsx'),
         models: () => [import('pages/apiManagement/model')]
        
     },
     {
         name: 'API管理详情',
-        path: '/apiManagement/details',
+        path: '/managementApi/details',
         component: () => import('pages/apiManagement/details.jsx'),
         models: () => [import('pages/apiManagement/model')]
        
+    },
+    {
+        name: '查询栏',
+        path: '/queryBar',
+        component: () => import('pages/queryBar/demo.jsx'),
+    },
+    {
+        name: '基础表格',
+        path: '/baseTable',
+        component: () => import('pages/baseTable/demo.jsx'),
     },
 ];
 

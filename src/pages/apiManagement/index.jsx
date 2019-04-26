@@ -110,7 +110,7 @@ class Page extends Component{
                 </div>
                 <div className='wrapper'>
                     <Button icon="file-add" type="primary" ghost>
-                        <Link to='/apiManagement/details'> 新增接口</Link>
+                        <Link to='/managementApi/details'> 新增接口</Link>
                     </Button>
                 </div>
                 <div className='wrapper'>

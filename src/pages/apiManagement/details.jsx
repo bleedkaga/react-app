@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb, Form, Input, Select, Button, Divider} from 'antd';
+import { Breadcrumb, Form, Input, Select, Button } from 'antd';
 import { Link } from 'dva/router';
 import { connect } from 'dva';
 import './index.less';
@@ -104,10 +104,9 @@ class apiManagementDetails extends Component{
                                     )}
                                 </Form.Item>
                                 <Form.Item >
-                                    <Button type="primary" ghost>
-                                        <Link to='/apiManagement'>取消</Link>
+                                    <Button type="primary" ghost className='mr-20'>
+                                        <Link to='/managementApi'>取消</Link>
                                     </Button>
-                                    <Divider type="vertical" />
                                     <Button type="primary" htmlType="submit">提交</Button>
                                 </Form.Item>
                             </Form>

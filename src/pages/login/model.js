@@ -21,7 +21,7 @@ export default {
                 case '0000':
                     message.success('登录成功！', 2.5);
                     hide();
-                    yield put(routerRedux.push('./apiManagement'));
+                    yield put(routerRedux.push('./managementApi'));
                     break;
                 case '0001':
                     message.error('账号不存在！', 2.5);
